@@ -1,5 +1,5 @@
 
-public class parents extends students{
+public class parents{
 	
 	private String pName;
 	private String pEmail;
