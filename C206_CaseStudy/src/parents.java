@@ -1,11 +1,13 @@
 
-public class parents{
+public class parents extends students{
 	
 	private String pName;
 	private String pEmail;
 	private int pContactNo;
 	
-	public parents(String pName, String pEmail, int pContactNo) {
+	public parents(String sName, int sGrade, String sClass, String sTeacher, 
+			String pName, String pEmail, int pContactNo) {
+		super(sName, sGrade, sClass, sTeacher);
 		this.pName = pName;
 		this.pEmail = pEmail;
 		this.pContactNo = pContactNo;

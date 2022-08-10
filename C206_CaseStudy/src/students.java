@@ -1,31 +1,31 @@
 public class students{
 	
 	private String sName;
-	private String sEmail;
-	private int sContactNo;
-	private int sStudentId;
+	private int sGrade;
+	private String sClass;
+	private String sTeacher;
 
-	public students(String sName, String sEmail, int sContactNo, int sStudentId) {
-		super();
+	public students(String sName, int sGrade, String sClass, String sTeacher) {
 		this.sName = sName;
-		this.sEmail = sEmail;
-		this.sContactNo = sContactNo;
-		this.sStudentId = sStudentId;
+		this.sGrade = sGrade;
+		this.sClass = sClass;
+		this.sTeacher = sTeacher;
 	}
 	
 	public String getsName() {
 		return sName;
 	}
-	public String getsEmail() {
-		return sEmail;
-	}
-	public int getsContactNo() {
-		return sContactNo;
-	}
-	public int getsStudentId() {
-		return sStudentId;
+
+	public int getsGrade() {
+		return sGrade;
 	}
 	
+	public String getsClass() {
+		return sClass;
+	}
 	
+	public String getsTeacher() {
+		return sTeacher;
+	}
 }
 	
