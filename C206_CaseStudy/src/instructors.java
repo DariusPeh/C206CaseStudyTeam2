@@ -5,11 +5,11 @@ public class instructors extends CCA{
 	private String role;
 	
 	public instructors(String cInstructor, String cTitle, String ctName, String iEmail,
-			String password, String role) {
+			String password) {
 		super(cInstructor, cTitle, ctName);
 		this.iEmail = iEmail;
 		this.password = password;
-		this.role = role;
+		this.role = "instructor";
 	}
 
 	public String getiEmail() {

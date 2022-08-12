@@ -7,14 +7,6 @@
 public class Category {
 	
 	private String ctName;
-	private int ctId;
-	private String ctDescription;
-
-	public Category(String ctName, int ctId, String ctDescription) {
-		this.ctName = ctName;
-		this.ctId = ctId;
-		this.ctDescription = ctDescription;
-	}
 	
 	public Category(String ctName) {
 		this.ctName = ctName;
@@ -27,20 +19,5 @@ public class Category {
 	public void setctName(String ctName) {
 		this.ctName = ctName;
 	}
-
-	public int getctId() {
-		return ctId;
-	}
-
-	public void setctId(int ctId) {
-		this.ctId = ctId;
-	}
-
-	public String getctDescription() {
-		return ctDescription;
-	}
 	
-	public void setctDescription(String ctDescription) {
-		this.ctDescription = ctDescription;
-	}
-	}
+}

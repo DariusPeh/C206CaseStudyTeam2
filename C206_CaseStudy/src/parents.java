@@ -7,12 +7,12 @@ public class parents extends students{
 	private String role;
 	
 	public parents(String sName, int sGrade, String sClass, String sTeacher, 
-			String pName, String pEmail, int pContactNo, String role) {
+			String pName, String pEmail, int pContactNo) {
 		super(sName, sGrade, sClass, sTeacher);
 		this.pName = pName;
 		this.pEmail = pEmail;
 		this.pContactNo = pContactNo;
-		this.role = role;
+		this.role = "parent";
 	}
 	
 	public String getpName() {

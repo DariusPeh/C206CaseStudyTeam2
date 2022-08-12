@@ -16,8 +16,8 @@ public class CCA extends Category{
 	public String cInstructor;
 
 	public CCA(String cTitle, String description, int classSize, String day, int time, String venue,
-			String ctName, int ctId, String ctDescription, boolean isAvailable, String cInstructor) {
-		super(ctName, ctId, ctDescription);
+			String ctName, boolean isAvailable, String cInstructor) {
+		super(ctName);
 		this.cTitle = cTitle;
 		this.description = description;
 		this.classSize = classSize;
