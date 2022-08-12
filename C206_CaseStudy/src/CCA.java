@@ -4,7 +4,7 @@
  * 
  */
 
-public class CCA {
+public class CCA extends Category{
 	
 	public String cTitle;
 	public String description;
@@ -16,8 +16,8 @@ public class CCA {
 	public String cInstructor;
 
 	public CCA(String cTitle, String description, int classSize, String day, int time, String venue,
-			boolean isAvailable, String cInstructor) {
-		super();
+			String ctName, int ctId, String ctDescription, boolean isAvailable, String cInstructor) {
+		super(ctName, ctId, ctDescription);
 		this.cTitle = cTitle;
 		this.description = description;
 		this.classSize = classSize;
@@ -26,6 +26,12 @@ public class CCA {
 		this.venue = venue;
 		this.isAvailable = isAvailable;
 		this.cInstructor = cInstructor;
+	}
+	
+	public CCA(String cInstructor, String cTitle,  String ctName) {
+		super(ctName);
+		this.cInstructor = cInstructor;
+		this.cTitle = cTitle;
 	}
 
 	public String getcTitle() {

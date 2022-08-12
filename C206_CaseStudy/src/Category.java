@@ -4,17 +4,20 @@
  * 
  */
 
-public class Category extends CCA {
+public class Category {
 	
 	private String ctName;
 	private int ctId;
 	private String ctDescription;
 
-	public Category(String ctName, int ctId, String ctDesription) {
-		super();
+	public Category(String ctName, int ctId, String ctDescription) {
 		this.ctName = ctName;
 		this.ctId = ctId;
 		this.ctDescription = ctDescription;
+	}
+	
+	public Category(String ctName) {
+		this.ctName = ctName;
 	}
 
 	public String getctName() {
