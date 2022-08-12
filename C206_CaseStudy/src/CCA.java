@@ -10,12 +10,12 @@ public class CCA extends Category{
 	public String description;
 	public int classSize;
 	public String day;
-	public int time;
+	public String time;
 	public String venue;
 	public boolean isAvailable;
 	public String cInstructor;
 
-	public CCA(String cTitle, String description, int classSize, String day, int time, String venue,
+	public CCA(String cTitle, String description, int classSize, String day, String time, String venue,
 			String ctName, boolean isAvailable, String cInstructor) {
 		super(ctName);
 		this.cTitle = cTitle;
@@ -28,7 +28,7 @@ public class CCA extends Category{
 		this.cInstructor = cInstructor;
 	}
 	
-	public CCA(String cInstructor, String cTitle,  String ctName) {
+	public CCA(String cInstructor, String cTitle, String ctName) {
 		super(ctName);
 		this.cInstructor = cInstructor;
 		this.cTitle = cTitle;
@@ -66,11 +66,11 @@ public class CCA extends Category{
 		this.day = day;
 	}
 
-	public int getTime() {
+	public String getTime() {
 		return time;
 	}
 
-	public void setTime(int time) {
+	public void setTime(String time) {
 		this.time = time;
 	}
 
