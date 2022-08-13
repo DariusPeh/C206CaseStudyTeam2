@@ -63,6 +63,9 @@ public class C206_CaseStudy {
 						regID = r.nextInt(9000) + 1000;
 						System.out.println("Your registration ID is " + regID);
 						
+						Helper.line(20, "=");
+						System.out.println("LOGIN PARENT ACCOUNT");
+						
 						int logStudentID = Helper.readInt("Enter student ID > ");
 						int logRegID = Helper.readInt("Enter registration ID > ");
 						
@@ -75,6 +78,9 @@ public class C206_CaseStudy {
 					}
 					
 				} else if (logreg == 'l' || logreg == 'L') {
+					Helper.line(20, "=");
+					System.out.println("LOGIN PARENT ACCOUNT");
+					
 					int logStudentID = Helper.readInt("Enter student ID > "); 
 					int logRegID = Helper.readInt("Enter registration ID > ");
 					
@@ -83,6 +89,7 @@ public class C206_CaseStudy {
 						System.out.println("Your student ID or registration ID was incorrect. Please try again!");
 					}
 				}
+				
 				
 			//Student login/register	
 			} else if (roleSelect == 's' || roleSelect == 'S'){
@@ -102,6 +109,8 @@ public class C206_CaseStudy {
 					if (isVerified == true) {
 						studentList.add(new students(name, studentID, studentGrade, studentClass,
 								formTeacher));
+						Helper.line(20, "=");
+						System.out.println("LOGIN STUDENT ACCOUNT");
 						
 						int logStudentID = Helper.readInt("Enter student ID > ");
 						
@@ -112,7 +121,11 @@ public class C206_CaseStudy {
 					} else {
 						System.out.println("Student registration failed. Try again");
 					}
+					
 				} else if (logreg == 'l' || logreg == 'L') {
+					Helper.line(20, "=");
+					System.out.println("LOGIN STUDENT ACCOUNT");
+					
 					int logStudentID = Helper.readInt("Enter student ID > "); 
 					
 					isLogin = C206_CaseStudy.loginStudent(studentList, logStudentID);
@@ -120,11 +133,18 @@ public class C206_CaseStudy {
 						System.out.println("Your student ID or registration ID was incorrect. Please try again!");
 					}
 				}
+				
+				
+			//Instructor login/register
+			} else if (roleSelect == 'i' || roleSelect == 'I') {
+				Helper.line(20, "=");
+				System.out.println("LOGIN INSTRUCTOR ACCOUNT");
 			} else {
 				System.out.println("Invalid option. Please try again!");
 			}
+			
 			while(isLogin == true) {
-				
+				System.out.println("test");
 			}
 		}
 	}
