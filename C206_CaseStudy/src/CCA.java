@@ -82,7 +82,7 @@ public class CCA extends Category{
 		this.venue = venue;
 	}
 
-	public boolean isAvailable() {
+	public boolean getAvailable() {
 		return isAvailable;
 	}
 
