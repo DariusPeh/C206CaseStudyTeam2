@@ -127,18 +127,18 @@ public class C206_CaseStudyTest {
 	}
 	// Test for delete category
 		@Test
-	    public void testDoReturnCategory() {
-	     
-	      assertNotNull("Test if there is valid category arraylist to add to", categoryList);
-	      C206_CaseStudy.addCategory(categoryList, s1);
-	      
-	      Boolean isReturned = C206_CaseStudy.deleteCategory(categoryList, "c1");
-	      assertFalse("Test if available category c1 is returned -false?", isReturned);
-	   
-	      isReturned = C206_CaseStudy.deleteCategory(categoryList, "c2");
-	      assertFalse("Test if non-existing category c2 is returned - false?", isReturned);
-
-	    }
+	    public void testDoDeleteCategory() {
+			
+			assertNotNull("Test if it is a valid category to delete in the arrayList", categoryList);
+			
+			C206_CaseStudy.deleteCategory(categoryList, c1);
+			assertEquals("Test if arrayList equals to 0?", 0, categoryList.size());
+			assertSame("Test that category deleted same as 1st item of the list?", c1, categoryList.get(0));
+			
+			C206_CaseStudy.deleteCategory(categoryList, c2);
+			assertEquals("Test if arrayList equals to 1?", 1, categoryList.size());
+			assertSame("Test that category deleted same as 2nd item of the list?", c2, categoryList.get(1));
+			}
 		// Test for add all parent
 		@Test
 		public void testAddParent() {
@@ -152,6 +152,49 @@ public class C206_CaseStudyTest {
 			assertEquals("Test if arrayList equals to 2?", 2, parentsList.size());
 			assertSame("Test that parent is added same as 1st item of the list?", p2, parentsList.get(1));
 			}
+		// Test for add category
+		@Test
+		public void testAddCCA() {
+			
+			assertNotNull("Test if it is a valid category to add in the arrayList", ccaList);
+			
+			C206_CaseStudy.addCCA(ccaList, cca1);
+			assertEquals("Test if arrayList equals to 1?", 1, ccaList.size());
+			assertSame("Test that CCA is added same as 1st item of the list?", cca1, ccaList.get(0));
+			
+			C206_CaseStudy.addCCA(ccaList, cca2);
+			assertEquals("Test if arrayList equals to 2?", 2, ccaList.size());
+			assertSame("Test that CCA is added same as 2nd item of the list?", cca2, ccaList.get(1));
+			}
+		// Test for view all category
+		@Test
+			public void testRetrieveAllCCA() {
+			assertNotNull("Test if there is a valid CCA array to add", ccaList);
+			String viewAllCCA = C206_CaseStudy.viewAllCCA(ccaList);
+			String output = "";
+			assertSame("ViewAllCCAlist", output, viewAllCCA);
+			
+			C206_CaseStudy.addCCA(ccaList, cca1);
+			assertEquals("Test if arrayList size is equal to 1?", 1, ccaList.size());
+			
+			viewAllCCA = C206_CaseStudy.viewAllCCA(ccaList);
+			
+			output = String.format("%-15s\n", "cName");
+		}
+		// Test for delete category
+			@Test
+		    public void testDoDeleteCCA() {
+				
+				assertNotNull("Test if it is a valid CCA to delete in the arrayList", ccaList);
+				
+				C206_CaseStudy.deleteCCA(ccaList, cca1);
+				assertEquals("Test if arrayList equals to 0?", 0, categoryList.size());
+				assertSame("Test that cca deleted same as 1st item of the list?", cca1, ccaList.get(0));
+				
+				C206_CaseStudy.deleteCCA(ccaList, cca2);
+				assertEquals("Test if arrayList equals to 1?", 1, categoryList.size());
+				assertSame("Test that cca deleted same as 2nd item of the list?", cca2, ccaList.get(1));
+				}
 		@After
 		public void tearDown() throws Exception {
 			cca1 = null;
