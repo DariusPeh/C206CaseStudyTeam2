@@ -10,6 +10,7 @@ public class C206_CaseStudy {
 		//Student accounts
 		ArrayList<students> studentList = new ArrayList<students>();
 		studentList.add(new students("Timothy Tan", 11111, 4, "4D", "Theresa Jiang"));
+		studentList.add(new students("Jason Lim", 22222, 3, "3A", "Jennifer Tan"));
 		
 		//Instructors accounts
 		ArrayList<instructors> instructorList = new ArrayList<instructors>();
@@ -25,9 +26,20 @@ public class C206_CaseStudy {
 		ccaList.add(new CCA("Robotics club", "Create and experiment with robots!", 30, "Thursday",
 				"2:30PM - 3:30PM", "Com Lab 4", "Clubs and Societies", true, "Thomas Liang"));
 		
+		//CCA Categories
+		ArrayList<Category> categoryList = new ArrayList<Category>();
+		categoryList.add(new Category(0, "Basketball"));
+		categoryList.add(new Category(1, "Robotics club"));
+		
+		//Student CCA list
+		ArrayList<StudentHasCCA> studentccaList = new ArrayList<StudentHasCCA>();
+		studentccaList.add(new StudentHasCCA("Timothy Tan", "Basketball", null, null));
+		studentccaList.add(new StudentHasCCA("Jason Lim", "Robotics club", null, null));
+		
 		//Login/Register
 		while(true) {
 			boolean isLogin = false;
+			String studentName = "";
 			Helper.line(30, "=");
 			System.out.println("SCHOOL CCA REGISTRATION - REGISTER/LOGIN");
 			Helper.line(30, "=");
@@ -58,6 +70,7 @@ public class C206_CaseStudy {
 								parentName, parentEmail, parentContact));
 						studentList.add(new students(name, studentID, studentGrade, studentClass,
 								formTeacher));
+						studentccaList.add(new StudentHasCCA(name, null, null, null));
 						
 						Random r = new Random();
 						regID = r.nextInt(9000) + 1000;
@@ -70,6 +83,7 @@ public class C206_CaseStudy {
 						int logRegID = Helper.readInt("Enter registration ID > ");
 						
 						isLogin = C206_CaseStudy.loginParent(studentList, logStudentID, logRegID, regID);
+						studentName = name;
 						if (isLogin == false) {
 							System.out.println("Your student ID or registration ID was incorrect. Please try again!");
 						}
@@ -83,6 +97,13 @@ public class C206_CaseStudy {
 					
 					int logStudentID = Helper.readInt("Enter student ID > "); 
 					int logRegID = Helper.readInt("Enter registration ID > ");
+					
+					//getting name of student of the parent
+					for (int i = 0; i < studentList.size(); i++) {
+						if (studentList.get(i).getsId() == logStudentID) {
+							studentName = studentList.get(i).getsName();
+						}
+					}
 					
 					isLogin = C206_CaseStudy.loginParent(studentList, logStudentID, logRegID, regID);
 					if (isLogin == false) {
@@ -109,11 +130,14 @@ public class C206_CaseStudy {
 					if (isVerified == true) {
 						studentList.add(new students(name, studentID, studentGrade, studentClass,
 								formTeacher));
+						studentccaList.add(new StudentHasCCA(name, null, null, null));
+						
 						Helper.line(20, "=");
 						System.out.println("LOGIN STUDENT ACCOUNT");
 						
 						int logStudentID = Helper.readInt("Enter student ID > ");
 						
+						studentName = name;
 						isLogin = C206_CaseStudy.loginStudent(studentList, logStudentID);
 						if (isLogin == false) {
 							System.out.println("Your student ID or registration ID was incorrect. Please try again!");
@@ -128,6 +152,11 @@ public class C206_CaseStudy {
 					
 					int logStudentID = Helper.readInt("Enter student ID > "); 
 					
+					for (int i = 0; i < studentList.size(); i++) {
+						if (studentList.get(i).getsId() == logStudentID) {
+							studentName = studentList.get(i).getsName();
+						}
+					}
 					isLogin = C206_CaseStudy.loginStudent(studentList, logStudentID);
 					if (isLogin == false) {
 						System.out.println("Your student ID or registration ID was incorrect. Please try again!");
@@ -139,12 +168,30 @@ public class C206_CaseStudy {
 			} else if (roleSelect == 'i' || roleSelect == 'I') {
 				Helper.line(20, "=");
 				System.out.println("LOGIN INSTRUCTOR ACCOUNT");
+				
+				String instructorName = Helper.readString("Enter your name > ");
+				
+				isLogin = C206_CaseStudy.loginInstructor(instructorList, instructorName);
+				if (isLogin == false) {
+					System.out.println("Your username was incorrect. Please try again.");
+				}
+				
 			} else {
 				System.out.println("Invalid option. Please try again!");
 			}
 			
 			while(isLogin == true) {
-				System.out.println("test");
+				//The Menu for parents/students
+				if ((roleSelect == 'p' || roleSelect == 'P') || (roleSelect == 's' || roleSelect == 'S')) {
+					C206_CaseStudy.showMenu();
+					int option = Helper.readInt("Enter option > ");
+					
+					if (option == 1) {
+						String StudentsCCAsInString = C206_CaseStudy.getStudentCCA
+								(studentccaList, studentList, parentList, roleSelect, studentName);
+						System.out.println(StudentsCCAsInString);
+					}
+				}
 			}
 		}
 	}
@@ -184,5 +231,65 @@ public class C206_CaseStudy {
 			}
 		}
 		return sValid;
+	}
+	
+	public static boolean loginInstructor (ArrayList<instructors> instructorList, String instructorName) {
+		boolean iValid = false;
+		for(int i = 0; i < instructorList.size(); i++) {
+			if(instructorName.equalsIgnoreCase(instructorList.get(i).getcInstructor())) {
+				iValid = true;
+			}
+		}
+		return iValid;
+	}
+	
+	public static void showMenu() {
+		Helper.line(30, "=");
+		System.out.println("MENU");
+		Helper.line(30, "=");
+		System.out.println("1. View all registered CCAs");
+		System.out.println("2. Add student to CCA");
+		System.out.println("3. Drop student from CCA");
+		System.out.println("0. Log out");
+	}
+	
+	public static void showMenuInstructor() {
+		Helper.line(30, "=");
+		System.out.println("MENU");
+		Helper.line(30, "=");
+		System.out.println("1. View all CCAs");
+		System.out.println("2. Add CCAs");
+		System.out.println("3. Edit CCAs");
+		System.out.println("4. Delete CCAs");
+		System.out.println("5. View all categories");
+		System.out.println("6. Add category");
+		System.out.println("7. Delete category");
+		System.out.println("0. Log out");
+	}
+	
+	public static String getStudentCCA(ArrayList<StudentHasCCA> studentccaList, 
+			ArrayList<students> studentList, ArrayList<parents> parentList, char roleSelect,
+			String studentName) {
+		String output = "";
+		output += String.format("%-15s %-15s %-15s %-15s\n", "STUDENT", "CCA 1", "CCA 2", "CCA 3");
+		
+		if (roleSelect == 'p' || roleSelect == 'P') {
+			for (int i = 0; i < studentccaList.size(); i++) {
+				if (studentccaList.get(i).getsName().equalsIgnoreCase(studentName)) {
+					output += String.format("%-15s %-15s %-15s %-15s\n",
+							studentccaList.get(i).getsName(), studentccaList.get(i).getCCA1(),
+							studentccaList.get(i).getCCA2(), studentccaList.get(i).getCCA3());
+				}
+			}
+		} else if (roleSelect == 's' || roleSelect == 'S') {
+			for (int i = 0; i < studentccaList.size(); i++) {
+				if (studentccaList.get(i).getsName().equalsIgnoreCase(studentName)) {
+					output += String.format("%-15s %-15s %-15s %-15s\n",
+							studentccaList.get(i).getsName(), studentccaList.get(i).getCCA1(),
+							studentccaList.get(i).getCCA2(), studentccaList.get(i).getCCA3());
+				}
+			}
+		}
+		return output;
 	}
 }

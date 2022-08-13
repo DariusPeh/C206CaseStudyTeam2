@@ -23,6 +23,10 @@ public class students {
 		this.sTeacher = sTeacher;
 	}
 	
+	public students(String sName) {
+		this.sName = sName;
+	}
+	
 	public String getsName() {
 		return sName;
 	}

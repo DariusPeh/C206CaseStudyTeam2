@@ -5,13 +5,22 @@
  */
 
 public class Category {
-	
+	private int ctID;
 	private String ctName;
 	
-	public Category(String ctName) {
+	public Category(int ctID, String ctName) {
+		this.ctID = ctID;
 		this.ctName = ctName;
 	}
 
+	public Category(String ctName) {
+		this.ctName = ctName;
+	}
+	
+	public int getctID() {
+		return ctID;
+	}
+	
 	public String getctName() {
 		return ctName;
 	}
@@ -19,5 +28,6 @@ public class Category {
 	public void setctName(String ctName) {
 		this.ctName = ctName;
 	}
+	
 	
 }
