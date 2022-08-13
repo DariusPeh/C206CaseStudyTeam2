@@ -42,5 +42,54 @@ public class C206_CaseStudyTest {
 		categoryList= new ArrayList<Category>();
 		parentsList= new ArrayList<parents>();
 		studentsList= new ArrayList<students>();
+		
+		
+	
 	}
+	// Test for add all student
+	@Test
+	public void testAddStudent() {
+		
+		assertNotNull("Test if it is a valid student to add in the arrayList", studentsList);
+		
+		C206_CaseStudy.addStudent(studentsList, s1);
+		assertEquals("Test if arrayList equals to 1?", 1, studentsList.size());
+		assertSame("Test that student is added same as 1st item of the list?", s1, studentsList.get(0));
+		
+		C206_CaseStudy.addStudent(studentsList, s2);
+		assertEquals("Test if arrayList equals to 2?", 2, studentsList.size());
+		assertSame("Test that student is added same as 1st item of the list?", s2, studentsList.get(1));
+		}
+	
+	
+	// Test for view all student
+	@Test
+		public void testRetrieveAllStudent() {
+		assertNotNull("Test if there is a valid student array to add", studentsList);
+		String viewAllStudent = C206_CaseStudy.retrieveAllStudent(studentsList);
+		String output = "";
+		assertSame("ViewAllStudentlist", output, viewAllStudent);
+		
+		C206_CaseStudy.addStudents(studentsList,s1);
+		assertEquals("Test if arrayList size is equal to 1?", 1, studentsList.size());
+		
+		viewAllStudent = C206_CaseStudy.retrieveAllStudent(studentsList);
+		
+		output = String.format("%-15s %-15s %-15s %-15s\n", "sName", "sId", "sGrade", "sClass", "sTeacher");
+	}
+	
+	// Test for delete student
+	@Test
+    public void testDoReturnStudent() {
+     
+      assertNotNull("Test if there is valid Student arraylist to add to", studentsList);
+      C206_CaseStudy.addStudent(studentsList, s1);
+      
+      Boolean isReturned = C206_CaseStudy.deleteStudent(studentsList, "s1");
+      assertFalse("Test if available Student s1 is returned -false?", isReturned);
+   
+      isReturned = C206_CaseStudy.deleteStudent(studentsList, "S1");
+      assertFalse("Test if non-existing Student s1 is returned - false?", isReturned);
+
+    }
 }
