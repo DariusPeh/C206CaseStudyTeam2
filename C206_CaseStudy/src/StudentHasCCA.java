@@ -30,7 +30,7 @@ public class StudentHasCCA extends students{
 	}
 
 	public void setCCA1(String cCA1) {
-		CCA1 = cCA1;
+		this.CCA1 = cCA1;
 	}
 
 	public String getCCA2() {
@@ -38,7 +38,7 @@ public class StudentHasCCA extends students{
 	}
 
 	public void setCCA2(String cCA2) {
-		CCA2 = cCA2;
+		this.CCA2 = cCA2;
 	}
 
 	public String getCCA3() {
@@ -46,7 +46,7 @@ public class StudentHasCCA extends students{
 	}
 
 	public void setCCA3(String cCA3) {
-		CCA3 = cCA3;
+		this.CCA3 = cCA3;
 	}
 	
 }

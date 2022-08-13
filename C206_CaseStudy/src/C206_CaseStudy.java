@@ -187,9 +187,21 @@ public class C206_CaseStudy {
 					int option = Helper.readInt("Enter option > ");
 					
 					if (option == 1) {
-						String StudentsCCAsInString = C206_CaseStudy.getStudentCCA
-								(studentccaList, studentList, parentList, roleSelect, studentName);
+						String StudentsCCAsInString = C206_CaseStudy.getStudentCCA(studentccaList, studentName);
 						System.out.println(StudentsCCAsInString);
+					} else if (option == 2) {
+						String name = Helper.readString("Enter Student Name > ");
+						String cca = Helper.readString("Enter CCA to add > ");
+						boolean isAdded = C206_CaseStudy.addStudentCCA(studentccaList, 
+								ccaList, name, cca);
+						
+						if(isAdded == true) {
+							System.out.println("New CCA added!");
+						} else {
+							System.out.println("Failed to add. Check name and CCA entered.");
+						}
+					} else if (option == 3) {
+						
 					}
 				}
 			}
@@ -267,29 +279,76 @@ public class C206_CaseStudy {
 		System.out.println("0. Log out");
 	}
 	
-	public static String getStudentCCA(ArrayList<StudentHasCCA> studentccaList, 
-			ArrayList<students> studentList, ArrayList<parents> parentList, char roleSelect,
-			String studentName) {
+	public static String getStudentCCA(ArrayList<StudentHasCCA> studentccaList, String studentName) {
 		String output = "";
 		output += String.format("%-15s %-15s %-15s %-15s\n", "STUDENT", "CCA 1", "CCA 2", "CCA 3");
-		
-		if (roleSelect == 'p' || roleSelect == 'P') {
-			for (int i = 0; i < studentccaList.size(); i++) {
-				if (studentccaList.get(i).getsName().equalsIgnoreCase(studentName)) {
-					output += String.format("%-15s %-15s %-15s %-15s\n",
-							studentccaList.get(i).getsName(), studentccaList.get(i).getCCA1(),
-							studentccaList.get(i).getCCA2(), studentccaList.get(i).getCCA3());
-				}
-			}
-		} else if (roleSelect == 's' || roleSelect == 'S') {
-			for (int i = 0; i < studentccaList.size(); i++) {
-				if (studentccaList.get(i).getsName().equalsIgnoreCase(studentName)) {
-					output += String.format("%-15s %-15s %-15s %-15s\n",
-							studentccaList.get(i).getsName(), studentccaList.get(i).getCCA1(),
-							studentccaList.get(i).getCCA2(), studentccaList.get(i).getCCA3());
-				}
+		for (int i = 0; i < studentccaList.size(); i++) {
+			if (studentccaList.get(i).getsName().equalsIgnoreCase(studentName)) {
+				output += String.format("%-15s %-15s %-15s %-15s\n",
+					studentccaList.get(i).getsName(), studentccaList.get(i).getCCA1(),
+					studentccaList.get(i).getCCA2(), studentccaList.get(i).getCCA3());
 			}
 		}
 		return output;
+	}
+	
+	public static boolean addStudentCCA (ArrayList<StudentHasCCA> studentccaList, ArrayList<CCA> ccaList,
+			String name, String CCA) {
+		boolean added = false;
+		if (name != "") {
+			for (int i = 0; i < studentccaList.size(); i++) {
+				if (studentccaList.get(i).getsName().equalsIgnoreCase(name)) {
+					if (studentccaList.get(i).getCCA1() == null) {
+						for (int k = 0; k < ccaList.size(); k++) {
+							if(CCA.equalsIgnoreCase(ccaList.get(k).getcTitle())) {
+								studentccaList.get(i).setCCA1(CCA);
+								added = true;
+								break;
+							} else {
+								System.out.println("CCA does not exist!");
+							}
+						}
+					} else if (studentccaList.get(i).getCCA2() == null) {
+						for (int k = 0; k < ccaList.size(); k++) {
+							if (CCA.equalsIgnoreCase(ccaList.get(k).getcTitle())) {
+								studentccaList.get(i).setCCA2(CCA);
+								added = true;
+								break;
+							} else {
+								System.out.println("CCA does not exist!");
+							}
+						}
+					} else if (studentccaList.get(i).getCCA3() == null) {
+						for (int k = 0; k < ccaList.size(); k++) {
+							if(CCA.equalsIgnoreCase(ccaList.get(k).getcTitle())) {
+								studentccaList.get(i).setCCA3(CCA);
+								added = true;
+								break;
+							} else {
+								System.out.println("CCA does not exist!");
+							}
+						}
+					} else {
+						System.out.println("Student has registered max amount of CCAs!");
+						added = false;
+					}
+					break;
+				} else {
+					for (int k = 0; k < ccaList.size(); k++) {
+						if(CCA.equalsIgnoreCase(ccaList.get(k).getcTitle())) {
+							studentccaList.add(new StudentHasCCA(name, CCA, null, null));
+							added = true;
+							break;
+						} else {
+							System.out.println("CCA does not exist!");
+						}
+					}
+				}
+			}
+		} else {
+			System.out.println("Please enter a name.");
+			added = false;
+		}
+		return added;
 	}
 }
