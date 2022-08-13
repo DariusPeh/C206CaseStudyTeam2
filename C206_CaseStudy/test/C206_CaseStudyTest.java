@@ -28,13 +28,13 @@ public class C206_CaseStudyTest {
 	public void setUp() throws Exception {
 		// prepare test data
 		cca1 = new CCA("Basketball", "Ball bouncing team sport", 40, "Wednesday", "2:00PM",
-				"basketball court", "Physical Sports", true, "amran@WSSS.edu.sg");
+				"basketball court", "Physical Sports", true, "Mr amran");
 		cca2 = new CCA("Choir", "Group of singers", 30, "Friday", "2:30PM", "Music room",
-				"Visual and Performing Arts", true, "ally@WSSS.edu.sg");
+				"Visual and Performing Arts", true, "Mr ally");
 		c1 = new Category("Sports");
 		c2 = new Category("Uniformed group");
-		p1 = new parents("Nicole", 1, "4A", "Miss Lim", "Alice", "Alice@gmail.com", 88172121);
-		p2 = new parents("Michael", 4, "5B", "Mr gan", "Lee", "Lee@yahoo.com", 92218181);
+		p1 = new parents("Nicole", 1, "2A", "Miss Lim", "Alice", "Alice@gmail.com", 88172121);
+		p2 = new parents("Michael", 4, "2B", "Mr gan", "Lee", "Lee@yahoo.com", 92218181);
 		s1 = new students("Rachel", 11111, 1, "4A", "Miss Lim");
 		s2 = new students("Ronald", 22222, 3, "5C", "Mr chew");
 
@@ -135,10 +135,23 @@ public class C206_CaseStudyTest {
 	      Boolean isReturned = C206_CaseStudy.deleteCategory(categoryList, "c1");
 	      assertFalse("Test if available category c1 is returned -false?", isReturned);
 	   
-	      isReturned = C206_CaseStudy.deleteCategory(categoryList, "c1");
+	      isReturned = C206_CaseStudy.deleteCategory(categoryList, "c2");
 	      assertFalse("Test if non-existing category c2 is returned - false?", isReturned);
 
 	    }
+		// Test for add all parent
+		@Test
+		public void testAddParent() {
+			assertNotNull("Test if it is a valid parent to add in the arrayList", parentsList);
+			
+			C206_CaseStudy.addParent(parentsList, p1);
+			assertEquals("Test if arrayList equals to 1?", 1, parentsList.size());
+			assertSame("Test that parent is added same as 1st item of the list?", p1, parentsList.get(0));
+			
+			C206_CaseStudy.addParent(parentsList, p2);
+			assertEquals("Test if arrayList equals to 2?", 2, parentsList.size());
+			assertSame("Test that parent is added same as 1st item of the list?", p2, parentsList.get(1));
+			}
 	
 	
 }
