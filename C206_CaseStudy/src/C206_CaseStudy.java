@@ -28,8 +28,8 @@ public class C206_CaseStudy {
 		
 		//CCA Categories
 		ArrayList<Category> categoryList = new ArrayList<Category>();
-		categoryList.add(new Category(0, "Basketball"));
-		categoryList.add(new Category(1, "Robotics club"));
+		categoryList.add(new Category(0, "Physical Sports"));
+		categoryList.add(new Category(1, "Clubs and Societies"));
 		
 		//Student CCA list
 		ArrayList<StudentHasCCA> studentccaList = new ArrayList<StudentHasCCA>();
@@ -247,17 +247,68 @@ public class C206_CaseStudy {
 						if (isAdded == true) {
 							System.out.println("New CCA added!");
 						} else {
-							System.out.println("Failed to add. Check name and CCA entered.");
+							System.out.println("Failed to add.");
 						}
+						
 					} else if (option == 3) {
+						String edit = Helper.readString("Enter CCA to edit > ");
+						
+						String description = Helper.readString("Enter Description > ");
+						int classSize = Helper.readInt("Enter class size > ");
+						String day = Helper.readString("Enter day > ");
+						String time = Helper.readString("Enter time > ");
+						String venue = Helper.readString("Enter venue > ");
+						String ctName = Helper.readString("Enter Category name > ");
+						boolean available = Helper.readBoolean("Enter Availability > ");
+						String instructoric = Helper.readString("Enter instructor's name > ");
+						
+						boolean isEdited = C206_CaseStudy.editCCA(ccaList, categoryList, edit,
+								description, classSize, day, time, venue, ctName, available,
+								instructoric);
+						
+						if (isEdited == true) {
+							System.out.println("CCA successfully edited!");
+						} else {
+							System.out.println("Failed to edit.");
+						}
 						
 					} else if (option == 4) {
+						String title = Helper.readString("Enter CCA to delete > ");
+						String cInstructor = Helper.readString("Enter CCA instructor's name > ");
+						
+						boolean isDeleted = C206_CaseStudy.deleteCCA(ccaList, title, cInstructor);
+						
+						if (isDeleted == true) {
+							System.out.println("CCA successfully Deleted!");
+						} else {
+							System.out.println("Failed to Delete. Check name and CCA entered.");
+						}
 						
 					} else if (option == 5) {
+						String CategoryInString = C206_CaseStudy.getCategory(categoryList);
+						System.out.println(CategoryInString);
 						
 					} else if (option == 6) {
+						String ctName2 = Helper.readString("Enter CCA Category to add > ");
+						
+						boolean isAdded = C206_CaseStudy.addCategory(categoryList, ctName2);
+						
+						if (isAdded == true) {
+							System.out.println("Category Successfully added!");
+						} else {
+							System.out.println("Failed to Add.");
+						}
 						
 					} else if (option == 7) {
+						String ctName2 = Helper.readString("Enter CCA Category to delete> ");
+						
+						boolean isDeleted = C206_CaseStudy.deleteCategory(categoryList, ctName2);
+						
+						if (isDeleted == true) {
+							System.out.println("Category Successfully deleted!");
+						} else {
+							System.out.println("Failed to delete.");
+						}
 						
 					} else if (option == 0) {
 						isLogin = false;
@@ -437,7 +488,6 @@ public class C206_CaseStudy {
 				break;
 			} else {
 				System.out.println("Student/CCA does not exist!");
-				break;
 			}
 		}
 		return dropped;
@@ -483,5 +533,105 @@ public class C206_CaseStudy {
 			System.out.println("Invalid.");
 		}
 		return added;
+	}
+	
+	public static boolean editCCA(ArrayList<CCA> ccaList, ArrayList<Category> categoryList,
+			String edit, String description, int classSize, String day, String time,
+			String venue, String ctName, boolean available, String instructoric) {
+		boolean edited = false;
+		if (classSize <= 50) {
+			if (day != "Saturday" && day != "Sunday") {
+				for (int i = 0; i < ccaList.size(); i++) {
+					if (edit.equalsIgnoreCase(ccaList.get(i).getcTitle())) {
+						ccaList.get(i).setcTitle(edit);
+						ccaList.get(i).setDescription(description);
+						ccaList.get(i).setClassSize(classSize);
+						ccaList.get(i).setDay(day);
+						ccaList.get(i).setTime(time);
+						ccaList.get(i).setVenue(venue);
+						ccaList.get(i).setctName(ctName);
+						ccaList.get(i).setAvailable(available);
+						ccaList.get(i).setcInstructor(instructoric);
+						edited = true;
+					}
+				}
+			} else {
+				System.out.println("Invalid.");
+			}
+		} else {
+			System.out.println("Invalid.");
+		}
+		return edited;
+	}
+	
+	public static boolean deleteCCA(ArrayList<CCA> ccaList, String title, String cInstructor) {
+		boolean deleted = false;
+		for (int i = 0; i < ccaList.size(); i++) {
+			if (title.equalsIgnoreCase(ccaList.get(i).getcTitle()) && cInstructor.equalsIgnoreCase(ccaList.get(i).getcInstructor())) {
+				String output = String.format("%-10s %-10d %-10s %-10s %-10s %-10s %-10b %-10s %-10s\n",
+					ccaList.get(i).getcTitle(), ccaList.get(i).getClassSize(), 
+					ccaList.get(i).getDay(), ccaList.get(i).getTime(), ccaList.get(i).getVenue(),
+					ccaList.get(i).getctName(), ccaList.get(i).getAvailable(),
+					ccaList.get(i).getcInstructor(), ccaList.get(i).getDescription());
+				System.out.println(output);
+				
+				char confirm = Helper.readChar("Are you sure you want to delete the CCA above? (y/n) > ");
+				if (confirm == 'y' || confirm == 'Y') {
+					ccaList.remove(i);
+					deleted = true;
+					break;
+				}
+			} else {
+				System.out.println("CCA/Instructor is not found.");
+				deleted = false;
+				break;
+			}
+		}
+		return deleted;
+	}
+	
+	public static String getCategory(ArrayList<Category> categoryList) {
+		String output = "";
+		output += String.format("%-10s %-10s\n", "ID", "NAME");
+		for (int i = 0; i < categoryList.size(); i++) {
+			if (categoryList.get(i) != null) {
+				output += String.format("%-10s %-10s\n", categoryList.get(i).getctID(),
+						categoryList.get(i).getctName());
+			}
+		}
+		return output;
+	}
+	
+	public static boolean addCategory(ArrayList<Category> categoryList, String ctName2) {
+		boolean added = false;
+		for (int i = 0; i < categoryList.size(); i++) {
+			if(categoryList.get(i) != null && ctName2 != categoryList.get(i).getctName()) {
+				categoryList.add(new Category((i + 1), ctName2));
+				added = true;
+				break;
+			}
+		}
+		return added;
+	}
+	
+	public static boolean deleteCategory(ArrayList<Category> categoryList, String ctName2) {
+		boolean deleted = false;
+		for (int i = 0; i < categoryList.size(); i++) {
+			if(categoryList.get(i) != null && categoryList.get(i).getctName().equalsIgnoreCase(ctName2)) {
+				String output = String.format("%-10s %-10s\n", categoryList.get(i).getctID(),
+						categoryList.get(i).getctName());
+				System.out.println(output);
+				
+				char confirm = Helper.readChar("Are you sure you want to delete the CCA category above? (y/n) > ");
+				if (confirm == 'y' || confirm == 'Y') {
+					categoryList.remove(i);
+					deleted = true;
+					break;
+				}
+			} else {
+				System.out.println("Category not found.");
+			}
+		}
+		return deleted;
 	}
 }
