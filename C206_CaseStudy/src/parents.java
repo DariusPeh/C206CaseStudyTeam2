@@ -24,7 +24,6 @@ public class parents extends students{
 	public int getpContactNo() {
 		return pContactNo;
 	}
-	
 	public String getRole() {
 		return role;
 	}

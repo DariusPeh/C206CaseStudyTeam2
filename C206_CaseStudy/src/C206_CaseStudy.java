@@ -25,21 +25,25 @@ public class C206_CaseStudy {
 		ccaList.add(new CCA("Robotics club", "Create and experiment with robots!", 30, "Thursday",
 				"2:30PM - 3:30PM", "Com Lab 4", "Clubs and Societies", true, "Thomas Liang"));
 		
-		int regID = 0;
-		
 		//Login/Register
 		while(true) {
+			boolean isLogin = false;
 			Helper.line(30, "=");
 			System.out.println("SCHOOL CCA REGISTRATION - REGISTER/LOGIN");
 			Helper.line(30, "=");
 			
-			String role = Helper.readString("Are you a parent/student/instructor? (Enter p/s/i) > ");
-			if (role == "p" || role == "P") {
-				String logreg = Helper.readString("Login or register? (Enter l/r) > ");
-				if (logreg == "r" || logreg == "R") {
+			char roleSelect = Helper.readChar("Are you a parent/student/instructor? (Enter p/s/i) > ");
+			
+			//Parent register/login
+			if (roleSelect == 'p' || roleSelect == 'P') {
+				int regID = 0;
+				char logreg = Helper.readChar("Login or register? (Enter l/r) > ");
+				
+				if (logreg == 'r' || logreg == 'R') {
 					Helper.line(20, "=");
 					System.out.println("REGISTER PARENT ACCOUNT");
 					
+					int studentID = Helper.readInt("Enter student ID > ");
 					String name = Helper.readString("Enter student name > ");
 					int studentGrade = Helper.readInt("Enter student grade > ");
 					String studentClass = Helper.readString("Enter student class > ");
@@ -47,30 +51,91 @@ public class C206_CaseStudy {
 					String parentName = Helper.readString("Enter parent's name > ");
 					String parentEmail = Helper.readString("Enter parent's Email > ");
 					int parentContact = Helper.readInt("Enter parent's contact number > ");
-					boolean isVerified = C206_CaseStudy.verify(parentList, name);
+					boolean isVerified = C206_CaseStudy.verify(studentList, studentID);
 					
 					if (isVerified == true) {
 						parentList.add(new parents(name, studentGrade, studentClass, formTeacher, 
 								parentName, parentEmail, parentContact));
+						studentList.add(new students(name, studentID, studentGrade, studentClass,
+								formTeacher));
+						
 						Random r = new Random();
 						regID = r.nextInt(9000) + 1000;
 						System.out.println("Your registration ID is " + regID);
+						
+						int logStudentID = Helper.readInt("Enter student ID > ");
+						int logRegID = Helper.readInt("Enter registration ID > ");
+						
+						isLogin = C206_CaseStudy.loginParent(studentList, logStudentID, logRegID, regID);
+						if (isLogin == false) {
+							System.out.println("Your student ID or registration ID was incorrect. Please try again!");
+						}
 					} else {
-						System.out.println("Registration failed. Try again.");
+						System.out.println("Parent registration failed. Try again.");
 					}
-				} else if (logreg == "l" || logreg == "L") {
-					int studentID = Helper.readInt("Enter student ID > "); 
+					
+				} else if (logreg == 'l' || logreg == 'L') {
+					int logStudentID = Helper.readInt("Enter student ID > "); 
 					int logRegID = Helper.readInt("Enter registration ID > ");
+					
+					isLogin = C206_CaseStudy.loginParent(studentList, logStudentID, logRegID, regID);
+					if (isLogin == false) {
+						System.out.println("Your student ID or registration ID was incorrect. Please try again!");
+					}
 				}
+				
+			//Student login/register	
+			} else if (roleSelect == 's' || roleSelect == 'S'){
+				char logreg = Helper.readChar("Login or register? (Enter l/r) > ");
+				
+				if (logreg == 'r' || logreg == 'R') {
+					Helper.line(20, "=");
+					System.out.println("REGISTER STUDENT ACCOUNT");
+					
+					int studentID = Helper.readInt("Enter student ID > ");
+					String name = Helper.readString("Enter student name > ");
+					int studentGrade = Helper.readInt("Enter student grade > ");
+					String studentClass = Helper.readString("Enter student class > ");
+					String formTeacher = Helper.readString("Enter Form Teacher's name > ");
+					boolean isVerified = C206_CaseStudy.verify(studentList, studentID);
+					
+					if (isVerified == true) {
+						studentList.add(new students(name, studentID, studentGrade, studentClass,
+								formTeacher));
+						
+						int logStudentID = Helper.readInt("Enter student ID > ");
+						
+						isLogin = C206_CaseStudy.loginStudent(studentList, logStudentID);
+						if (isLogin == false) {
+							System.out.println("Your student ID or registration ID was incorrect. Please try again!");
+						}
+					} else {
+						System.out.println("Student registration failed. Try again");
+					}
+				} else if (logreg == 'l' || logreg == 'L') {
+					int logStudentID = Helper.readInt("Enter student ID > "); 
+					
+					isLogin = C206_CaseStudy.loginStudent(studentList, logStudentID);
+					if (isLogin == false) {
+						System.out.println("Your student ID or registration ID was incorrect. Please try again!");
+					}
+				}
+			} else {
+				System.out.println("Invalid option. Please try again!");
+			}
+			while(isLogin == true) {
+				
 			}
 		}
 	}
 	
-	public static boolean verify (ArrayList<parents> parentList, String name) {
+	public static boolean verify (ArrayList<students> studentList, int studentID) {
 		boolean verified = false;
-		if (name != "") {
-			for (int i = 0; i < parentList.size(); i++) {
-				if (name.equalsIgnoreCase(parentList.get(i).getsName())) {
+		String id = "";
+		id = id + studentID;
+		if (id != "") {
+			for (int i = 0; i < studentList.size(); i++) {
+				if (studentID == studentList.get(i).getsId()) {
 					System.out.println("Duplicate student found!");
 					verified = false;
 				} else {
@@ -79,5 +144,25 @@ public class C206_CaseStudy {
 			}
 		}
 		return verified;
+	}
+	
+	public static boolean loginParent (ArrayList<students> studentList, int logStudentID, int logRegID, int regID) {
+		boolean valid = false;
+		for(int i = 0; i < studentList.size(); i++) {
+			if(logStudentID == studentList.get(i).getsId() && logRegID == regID) {
+				valid = true;
+			}
+		}
+		return valid;
+	}
+	
+	public static boolean loginStudent (ArrayList<students> studentList, int logStudentID) {
+		boolean sValid = false;
+		for(int i = 0; i < studentList.size(); i++) {
+			if(logStudentID == studentList.get(i).getsId()) {
+				sValid = true;
+			}
+		}
+		return sValid;
 	}
 }
