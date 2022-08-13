@@ -152,6 +152,21 @@ public class C206_CaseStudyTest {
 			assertEquals("Test if arrayList equals to 2?", 2, parentsList.size());
 			assertSame("Test that parent is added same as 1st item of the list?", p2, parentsList.get(1));
 			}
-	
+		@After
+		public void tearDown() throws Exception {
+			cca1 = null;
+			cca2 = null;
+			c1 = null;
+			c2 = null;
+			p1 = null;
+			p2 = null;
+			s1 = null;
+			s2 = null;
+			ccaList = null;
+			categoryList = null;
+			parentsList = null;
+			studentsList = null;
+
+		}
 	
 }
