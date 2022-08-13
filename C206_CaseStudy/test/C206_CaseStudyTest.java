@@ -92,4 +92,49 @@ public class C206_CaseStudyTest {
       assertFalse("Test if non-existing Student s1 is returned - false?", isReturned);
 
     }
+	// Test for add category
+	@Test
+	public void testAddCategory() {
+		
+		assertNotNull("Test if it is a valid category to add in the arrayList", categoryList);
+		
+		C206_CaseStudy.addCategory(categoryList, c1);
+		assertEquals("Test if arrayList equals to 1?", 1, categoryList.size());
+		assertSame("Test that category is added same as 1st item of the list?", c1, categoryList.get(0));
+		
+		C206_CaseStudy.addCategory(categoryList, c2);
+		assertEquals("Test if arrayList equals to 2?", 2, categoryList.size());
+		assertSame("Test that category is added same as 2nd item of the list?", c2, categoryList.get(1));
+		}
+	// Test for view all category
+	@Test
+		public void testRetrieveAllCategory() {
+		assertNotNull("Test if there is a valid category array to add", categoryList);
+		String viewAllCategory = C206_CaseStudy.viewAllCategory(categoryList);
+		String output = "";
+		assertSame("ViewAllCategorylist", output, viewAllCategory);
+		
+		C206_CaseStudy.addCategory(categoryList, c1);
+		assertEquals("Test if arrayList size is equal to 1?", 1, categoryList.size());
+		
+		viewAllCategory = C206_CaseStudy.viewAllCategory(categoryList);
+		
+		output = String.format("%-15s\n", "ctName");
+	}
+	// Test for delete category
+		@Test
+	    public void testDoReturnCategory() {
+	     
+	      assertNotNull("Test if there is valid category arraylist to add to", categoryList);
+	      C206_CaseStudy.addCategory(categoryList, s1);
+	      
+	      Boolean isReturned = C206_CaseStudy.deleteCategory(categoryList, "c1");
+	      assertFalse("Test if available category c1 is returned -false?", isReturned);
+	   
+	      isReturned = C206_CaseStudy.deleteCategory(categoryList, "c1");
+	      assertFalse("Test if non-existing category c2 is returned - false?", isReturned);
+
+	    }
+	
+	
 }
