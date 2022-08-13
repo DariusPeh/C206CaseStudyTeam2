@@ -188,7 +188,7 @@ public class C206_CaseStudy {
 					int option = Helper.readInt("Enter option > ");
 					
 					if (option == 1) {
-						String StudentsCCAsInString = C206_CaseStudy.getStudentCCA(studentccaList, studentName);
+						String StudentsCCAsInString = C206_CaseStudy.viewAllStudentCCA(studentccaList, studentName);
 						System.out.println(StudentsCCAsInString);
 						
 					} else if (option == 2) {
@@ -226,7 +226,7 @@ public class C206_CaseStudy {
 					int option = Helper.readInt("Enter option > ");
 					
 					if (option == 1) {
-						String CCAsInString = C206_CaseStudy.getCCA(ccaList);
+						String CCAsInString = C206_CaseStudy.viewAllCCA(ccaList);
 						System.out.println(CCAsInString);
 						
 					} else if (option == 2) {
@@ -285,7 +285,7 @@ public class C206_CaseStudy {
 						}
 						
 					} else if (option == 5) {
-						String CategoryInString = C206_CaseStudy.getCategory(categoryList);
+						String CategoryInString = C206_CaseStudy.viewAllCategory(categoryList);
 						System.out.println(CategoryInString);
 						
 					} else if (option == 6) {
@@ -306,6 +306,37 @@ public class C206_CaseStudy {
 						
 						if (isDeleted == true) {
 							System.out.println("Category Successfully deleted!");
+						} else {
+							System.out.println("Failed to delete.");
+						}
+						
+					} else if (option == 8) {
+						int sID = Helper.readInt("Enter student ID > ");
+						String sName = Helper.readString("Enter student name > ");
+						int sGrade = Helper.readInt("Enter student grade > ");
+						String sClass = Helper.readString("Enter student class > ");
+						String formTeacher = Helper.readString("Enter Form Teacher's name > ");
+						
+						boolean isAdded = C206_CaseStudy.addStudent(studentList, sName, sID, sGrade, sClass, formTeacher);
+						
+						if (isAdded == true) {
+							System.out.println("Student Successfully added!");
+						} else {
+							System.out.println("Failed to Add.");
+						}
+						
+					} else if (option == 9) {
+						String studentsInString = C206_CaseStudy.viewAllStudent(studentList);
+						System.out.println(studentsInString);
+						
+					} else if (option == 10) {
+						int sID = Helper.readInt("Enter student ID > ");
+						String sName = Helper.readString("Enter student name > ");
+						
+						boolean isDeleted = C206_CaseStudy.deleteStudent(studentList, sID, sName);
+						
+						if (isDeleted == true) {
+							System.out.println("Student Successfully deleted!");
 						} else {
 							System.out.println("Failed to delete.");
 						}
@@ -389,10 +420,13 @@ public class C206_CaseStudy {
 		System.out.println("5. View all categories");
 		System.out.println("6. Add category");
 		System.out.println("7. Delete category");
+		System.out.println("8. Add Student");
+		System.out.println("9. View Students");
+		System.out.println("10. Delete Students");
 		System.out.println("0. Log out");
 	}
 	
-	public static String getStudentCCA(ArrayList<StudentHasCCA> studentccaList, String studentName) {
+	public static String viewAllStudentCCA(ArrayList<StudentHasCCA> studentccaList, String studentName) {
 		String output = "";
 		output += String.format("%-10s %-10s %-10s %-10s\n", "STUDENT", "CCA 1", "CCA 2", "CCA 3");
 		for (int i = 0; i < studentccaList.size(); i++) {
@@ -493,7 +527,7 @@ public class C206_CaseStudy {
 		return dropped;
 	}
 	
-	public static String getCCA(ArrayList<CCA> ccaList) {
+	public static String viewAllCCA(ArrayList<CCA> ccaList) {
 		String output = "";
 		output += String.format("%-10s %-10d %-10s %-10s %-10s %-10s %-10b %-10s %-10s\n",
 				"NAME", "CLASS SIZE", "DAY", "TIME", "VENUE", "CATEGORY", "AVAILABILITY",
@@ -590,7 +624,7 @@ public class C206_CaseStudy {
 		return deleted;
 	}
 	
-	public static String getCategory(ArrayList<Category> categoryList) {
+	public static String viewAllCategory(ArrayList<Category> categoryList) {
 		String output = "";
 		output += String.format("%-10s %-10s\n", "ID", "NAME");
 		for (int i = 0; i < categoryList.size(); i++) {
@@ -630,6 +664,55 @@ public class C206_CaseStudy {
 				}
 			} else {
 				System.out.println("Category not found.");
+			}
+		}
+		return deleted;
+	}
+	
+	public static boolean addStudent(ArrayList<students> studentList, String sName, int sID,
+			int sGrade, String sClass, String formTeacher) {
+		boolean added = false;
+		for (int i = 0; i < studentList.size(); i++) {
+			if(sID != studentList.get(i).getsId() && sName != studentList.get(i).getsName()) {
+				studentList.add(new students(sName, sID, sGrade, sClass, formTeacher));
+				added = true;
+				break;
+			} else {
+				System.out.println("Student already exists!");
+			}
+		}
+		return added;
+	}
+	
+	public static String viewAllStudent(ArrayList<students> studentList) {
+		String output = "";
+		output += String.format("%-10s %-10d %-10d %-10s %-10s\n", "NAME", "ID", "GRADE", "CLASS", "FORM TEACHER");
+		for (int i = 0; i < studentList.size(); i++) {
+			if (studentList.get(i) != null) {
+				output += String.format("%-10s %-10d %-10d %-10s %-10s\n", studentList.get(i).getsName(),
+						studentList.get(i).getsId(), studentList.get(i).getsGrade(), studentList.get(i).getClass(),
+						studentList.get(i).getsTeacher());
+			}
+		}
+		return output;
+	}
+	
+	public static boolean deleteStudent(ArrayList<students> studentList, int sID, String sName) {
+		boolean deleted = false;
+		for(int i = 0; i < studentList.size(); i++) {
+			if (sID == studentList.get(i).getsId() && sName.equalsIgnoreCase(studentList.get(i).getsName())) {
+				String output = String.format("%-10s %-10d %-10d %-10s %-10s\n", studentList.get(i).getsName(),
+						studentList.get(i).getsId(), studentList.get(i).getsGrade(), studentList.get(i).getClass(),
+						studentList.get(i).getsTeacher());
+				System.out.println(output);
+				char confirm = Helper.readChar("Are you sure you want to delete the student above? (y/n) > ");
+				if (confirm == 'y' || confirm == 'Y') {
+					studentList.remove(i);
+					deleted = true;
+					break;
+				}
+			} else {
+				System.out.println("Student not found.");
 			}
 		}
 		return deleted;

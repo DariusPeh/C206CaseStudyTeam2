@@ -35,8 +35,8 @@ public class C206_CaseStudyTest {
 		c2 = new Category("Uniformed group");
 		p1 = new parents("Nicole", 1, "4A", "Miss Lim", "Alice", "Alice@gmail.com", 88172121);
 		p2 = new parents("Michael", 4, "5B", "Mr gan", "Lee", "Lee@yahoo.com", 92218181);
-		s1 = new students("Rachel", 1, "4A", "Miss Lim");
-		s2 = new students("Ronald", 3, "5C", "Mr chew");
+		s1 = new students("Rachel", 11111, 1, "4A", "Miss Lim");
+		s2 = new students("Ronald", 22222, 3, "5C", "Mr chew");
 
 		ccaList= new ArrayList<CCA>();
 		categoryList= new ArrayList<Category>();
@@ -66,14 +66,14 @@ public class C206_CaseStudyTest {
 	@Test
 		public void testRetrieveAllStudent() {
 		assertNotNull("Test if there is a valid student array to add", studentsList);
-		String viewAllStudent = C206_CaseStudy.retrieveAllStudent(studentsList);
+		String viewAllStudent = C206_CaseStudy.viewAllStudent(studentsList);
 		String output = "";
 		assertSame("ViewAllStudentlist", output, viewAllStudent);
 		
-		C206_CaseStudy.addStudents(studentsList,s1);
+		C206_CaseStudy.addStudent(studentsList, s1);
 		assertEquals("Test if arrayList size is equal to 1?", 1, studentsList.size());
 		
-		viewAllStudent = C206_CaseStudy.retrieveAllStudent(studentsList);
+		viewAllStudent = C206_CaseStudy.viewAllStudent(studentsList);
 		
 		output = String.format("%-15s %-15s %-15s %-15s\n", "sName", "sId", "sGrade", "sClass", "sTeacher");
 	}
