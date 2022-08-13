@@ -58,7 +58,7 @@ public class C206_CaseStudyTest {
 		
 		C206_CaseStudy.addStudent(studentsList, s2);
 		assertEquals("Test if arrayList equals to 2?", 2, studentsList.size());
-		assertSame("Test that student is added same as 1st item of the list?", s2, studentsList.get(1));
+		assertSame("Test that student is added same as 2nd item of the list?", s2, studentsList.get(1));
 		}
 	
 	
