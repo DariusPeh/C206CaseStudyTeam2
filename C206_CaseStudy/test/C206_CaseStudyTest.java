@@ -75,7 +75,10 @@ public class C206_CaseStudyTest {
 		
 		viewAllStudent = C206_CaseStudy.viewAllStudent(studentsList);
 		
-		output = String.format("%-15s %-15s %-15s %-15s\n", "sName", "sId", "sGrade", "sClass", "sTeacher");
+		output = String.format("%-15s %-15s %-15s %-15s\n", "Timothy Tan", "11111", "4D", "Theresa Jiang");
+		
+		output += String.format("%-15s %-15s %-15s %-15s\n", "Jason Lim", "22222", "3A", "Jennifer Tan");
+
 	}
 	
 	// Test for delete student
@@ -92,6 +95,7 @@ public class C206_CaseStudyTest {
       assertFalse("Test if non-existing Student s1 is returned - false?", isReturned);
 
     }
+	
 	// Test for add category
 	@Test
 	public void testAddCategory() {
