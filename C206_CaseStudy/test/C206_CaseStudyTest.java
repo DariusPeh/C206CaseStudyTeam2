@@ -152,7 +152,7 @@ public class C206_CaseStudyTest {
 			assertEquals("Test if arrayList equals to 2?", 2, parentsList.size());
 			assertSame("Test that parent is added same as 1st item of the list?", p2, parentsList.get(1));
 			}
-		// Test for add category
+		// Test for add CCA
 		@Test
 		public void testAddCCA() {
 			
@@ -166,7 +166,7 @@ public class C206_CaseStudyTest {
 			assertEquals("Test if arrayList equals to 2?", 2, ccaList.size());
 			assertSame("Test that CCA is added same as 2nd item of the list?", cca2, ccaList.get(1));
 			}
-		// Test for view all category
+		// Test for view all CCA
 		@Test
 			public void testRetrieveAllCCA() {
 			assertNotNull("Test if there is a valid CCA array to add", ccaList);
@@ -181,7 +181,7 @@ public class C206_CaseStudyTest {
 			
 			output = String.format("%-15s\n", "cName");
 		}
-		// Test for delete category
+		// Test for delete CCA
 			@Test
 		    public void testDoDeleteCCA() {
 				
@@ -195,7 +195,68 @@ public class C206_CaseStudyTest {
 				assertEquals("Test if arrayList equals to 1?", 1, categoryList.size());
 				assertSame("Test that cca deleted same as 2nd item of the list?", cca2, ccaList.get(1));
 				}
-		@After
+		
+    	// Test for retrieve parent
+			@Test
+			public void testRetrieveParent() {
+				
+				assertNotNull("Test if there is a valid parent array to add", parentsList);
+				String viewAllStudent = C206_CaseStudy.viewAllStudent(parentsList);
+				String output = "";
+				Object viewAllParent;
+				assertSame("ViewAllParentsList", output, viewAllParent);
+				
+				C206_CaseStudy.addParent(parentsList, s1);
+				assertEquals("Test if arrayList size is equal to 1?", 1, parentsList.size());
+				
+				viewAllStudent = C206_CaseStudy.viewAllParent(parentsList);
+				
+				output = String.format("%-15s %-15s %-15s %-15s\n", "Nicole", 1, "4A", "Miss Lim", "Alice", "Alice@gmail.com", 88172121);
+				
+				output += String.format("%-15s %-15s %-15s %-15s\n", "Michael", 4, "5B", "Mr gan", "Lee", "Lee@yahoo.com", 92218181);
+	
+			}
+			
+	  // Test for add student CCA 
+			
+		
+			
+			public void testAddStudentToCCA() {
+				
+				assertNotNull("Test to add student to CCA in the arrayList", studentsList);
+				
+				C206_CaseStudy.addStudent(studentsList, s1);
+				assertEquals("Test if arrayList equals to 1?", 1, studentsList.size());
+				assertSame("Test that student is added same as 1st item of the list?", s1, studentsList.get(0));
+				
+				C206_CaseStudy.addStudent(studentsList, s2);
+				assertEquals("Test if arrayList equals to 2?", 2, studentsList.size());
+				assertSame("Test that student is added same as 2nd item of the list?", s2, studentsList.get(1));
+				}
+			
+	  
+			
+		// Test for view all students registered for a CCA
+			@Test
+				public void testViewAllStudents() {
+				assertNotNull("Test if there is a valid student array to add", studentsList);
+				String viewAllStudent = C206_CaseStudy.viewAllStudent(studentsList);
+				String output = "";
+				assertSame("ViewAllStudentlist", output, viewAllStudent);
+				
+				C206_CaseStudy.addStudent(studentsList, s1);
+				assertEquals("Test if arrayList size is equal to 1?", 1, studentsList.size());
+				
+				viewAllStudent = C206_CaseStudy.viewAllStudent(studentsList);
+				
+				output = String.format("%-15s %-15s %-15s %-15s\n", "Timothy Tan", "11111", "4D", "Theresa Jiang");
+				
+				output += String.format("%-15s %-15s %-15s %-15s\n", "Jason Lim", "22222", "3A", "Jennifer Tan");
+
+			}
+			
+		
+			@After
 		public void tearDown() throws Exception {
 			cca1 = null;
 			cca2 = null;
